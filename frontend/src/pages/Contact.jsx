@@ -3,8 +3,12 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Container, Row, Col, FormGroup, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
+import configData from "../config.json";
+import { useNavigate, Navigate } from "react-router-dom";
 
 const ContactPage = () => {
+  let navigate = useNavigate();
   // Schema de validare pentru formular
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("Nume este obligatoriu!"),
@@ -16,16 +20,17 @@ const ContactPage = () => {
   });
 
   // Handler pentru trimiterea formularului
-  const handleSubmit = (values, { setSubmitting }) => {
-    setSubmitting(true);
-    // Aici poți adăuga logica de trimitere a datelor (ex. trimite un email sau salvează într-o bază de date)
-    console.log(values);
-    setTimeout(() => {
-      alert("Mesaj trimis cu succes!");
-      setSubmitting(false);
-    }, 1000);
+  const handleSubmit = (userObject) => {
+    axios
+      .post(configData.SERVER_CONTACT_URL, userObject)
+      .then((res) => {
+        if (res.status === 200) {
+          alert("User successfully created");
+          navigate("/user-list");
+        } else Promise.reject();
+      })
+      .catch((err) => alert("Something went wrong"));
   };
-
   return (
     <Container className="my-5">
       <Row>

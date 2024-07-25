@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findOne = exports.findAll = void 0;
+exports.create = exports.findOne = exports.findAll = void 0;
 const db_1 = require("../db");
 // Get all users
 const findAll = (callback) => {
@@ -14,10 +14,10 @@ const findAll = (callback) => {
         rows.forEach((row) => {
             const contact_message = {
                 id: row.id,
-                nume: row.nume,
-                prenume: row.prenume,
+                firstName: row.nume,
+                lastName: row.prenume,
                 email: row.email,
-                mesaj: row.mesaj,
+                message: row.mesaj,
             };
             contact_messages.push(contact_message);
         });
@@ -34,12 +34,33 @@ const findOne = (contactId, callback) => {
         const row = result[0];
         const message = {
             id: row.id,
-            nume: row.nume,
-            prenume: row.prenume,
+            firstName: row.nume,
+            lastName: row.prenume,
             email: row.email,
-            mesaj: row.mesaj,
+            message: row.mesaj,
         };
         callback(null, message);
     });
 };
 exports.findOne = findOne;
+const create = (contact, callback) => {
+    //Verificam daca exista user cu aceasta adresa de email
+    const queryString = "INSERT INTO contact (nume, prenume, email, mesaj) VALUES (?, ?, ?, ?)";
+    console.log("insert", contact);
+    try {
+        db_1.db.query(queryString, [contact.firstName, contact.lastName, contact.email, contact.message], (err, result) => {
+            if (result !== undefined) {
+                const insertId = result.insertId;
+                callback(null, insertId);
+            }
+            else {
+                console.log("error email", err);
+                //callback(err, 0);
+            }
+        });
+    }
+    catch (error) {
+        callback(error);
+    }
+};
+exports.create = create;

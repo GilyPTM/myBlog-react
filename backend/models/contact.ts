@@ -1,6 +1,6 @@
 import { Contact } from "./../types/Contact";
 import { db } from "../db";
-import { RowDataPacket } from "mysql2";
+import { OkPacket, RowDataPacket } from "mysql2";
 // Get all users
 export const findAll = (callback: Function) => {
   const queryString = `SELECT * FROM contact`;
@@ -13,10 +13,10 @@ export const findAll = (callback: Function) => {
     rows.forEach((row) => {
       const contact_message: Contact = {
         id: row.id,
-        nume: row.nume,
-        prenume: row.prenume,
+        firstName: row.nume,
+        lastName: row.prenume,
         email: row.email,
-        mesaj: row.mesaj,
+        message: row.mesaj,
       };
       contact_messages.push(contact_message);
     });
@@ -34,11 +34,35 @@ export const findOne = (contactId: number, callback: Function) => {
     const row = (<RowDataPacket>result)[0];
     const message: Contact = {
       id: row.id,
-      nume: row.nume,
-      prenume: row.prenume,
+      firstName: row.nume,
+      lastName: row.prenume,
       email: row.email,
-      mesaj: row.mesaj,
+      message: row.mesaj,
     };
     callback(null, message);
   });
+};
+
+export const create = (contact: Contact, callback: Function) => {
+  //Verificam daca exista user cu aceasta adresa de email
+  const queryString =
+    "INSERT INTO contact (nume, prenume, email, mesaj) VALUES (?, ?, ?, ?)";
+  console.log("insert", contact);
+  try {
+    db.query(
+      queryString,
+      [contact.firstName, contact.lastName, contact.email, contact.message],
+      (err, result) => {
+        if (<OkPacket>result !== undefined) {
+          const insertId = (<OkPacket>result).insertId;
+          callback(null, insertId);
+        } else {
+          console.log("error email", err);
+          //callback(err, 0);
+        }
+      }
+    );
+  } catch (error) {
+    callback(error);
+  }
 };

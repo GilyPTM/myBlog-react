@@ -38,8 +38,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.contactRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const contactModel = __importStar(require("../models/contact"));
+const bodyParser = __importStar(require("body-parser"));
 const contactRouter = express_1.default.Router();
 exports.contactRouter = contactRouter;
+var jsonParser = bodyParser.json();
 contactRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     contactModel.findAll((err, messages) => {
         if (err) {
@@ -55,5 +57,17 @@ contactRouter.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, functi
             return res.status(500).json({ errorMessage: err.message });
         }
         res.status(200).json({ data: message });
+    });
+}));
+contactRouter.post("/", jsonParser, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.body);
+    const newContact = req.body;
+    contactModel.create(newContact, (err, userId) => {
+        if (err) {
+            return res.status(500).json({ message: err.message });
+        }
+        res
+            .status(200)
+            .json({ message: "Mesajul a fost adaugat cu succes!" });
     });
 }));

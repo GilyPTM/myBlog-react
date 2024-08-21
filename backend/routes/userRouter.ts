@@ -11,11 +11,11 @@ const userRouter = express.Router();
 var jsonParser = bodyParser.json();
 
 userRouter.get("/", async (req: Request, res: Response) => {
-  if (!verifyToken(req, res)) {
-    return res.status(403).json({
-      message: "<b>Trebue sa fi logat pentru a accesa aceasta zona!<b>",
-    });
-  }
+  // if (!verifyToken(req, res)) {
+  //   return res.status(403).json({
+  //     message: "<b>Trebue sa fi logat pentru a accesa aceasta zona!<b>",
+  //   });
+  // }
   userModel.findAll((err: Error, users: User[]) => {
     if (err) {
       return res.status(500).json({ errorMessage: err.message });
@@ -26,11 +26,11 @@ userRouter.get("/", async (req: Request, res: Response) => {
 });
 
 userRouter.get("/:id", async (req: Request, res: Response) => {
-  if (!verifyToken(req, res)) {
-    return res.status(403).json({
-      message: "<b>Trebue sa fi logat pentru a accesa aceasta zona!<b>",
-    });
-  }
+  // if (!verifyToken(req, res)) {
+  //   return res.status(403).json({
+  //     message: "<b>Trebue sa fi logat pentru a accesa aceasta zona!<b>",
+  //   });
+  // }
   const userId: number = Number(req.params.id);
   userModel.findOne(userId, (err: Error, user: User) => {
     if (err) {

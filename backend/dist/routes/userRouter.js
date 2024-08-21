@@ -46,11 +46,11 @@ const userRouter = express_1.default.Router();
 exports.userRouter = userRouter;
 var jsonParser = bodyParser.json();
 userRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!(0, jwt_2.verifyToken)(req, res)) {
-        return res.status(403).json({
-            message: "<b>Trebue sa fi logat pentru a accesa aceasta zona!<b>",
-        });
-    }
+    // if (!verifyToken(req, res)) {
+    //   return res.status(403).json({
+    //     message: "<b>Trebue sa fi logat pentru a accesa aceasta zona!<b>",
+    //   });
+    // }
     userModel.findAll((err, users) => {
         if (err) {
             return res.status(500).json({ errorMessage: err.message });
@@ -59,11 +59,11 @@ userRouter.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     });
 }));
 userRouter.get("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!(0, jwt_2.verifyToken)(req, res)) {
-        return res.status(403).json({
-            message: "<b>Trebue sa fi logat pentru a accesa aceasta zona!<b>",
-        });
-    }
+    // if (!verifyToken(req, res)) {
+    //   return res.status(403).json({
+    //     message: "<b>Trebue sa fi logat pentru a accesa aceasta zona!<b>",
+    //   });
+    // }
     const userId = Number(req.params.id);
     userModel.findOne(userId, (err, user) => {
         if (err) {

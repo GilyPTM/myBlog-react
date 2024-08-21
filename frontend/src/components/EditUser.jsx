@@ -42,20 +42,13 @@ const EditUser = (props) => {
       .get(configData.SERVER_URL + id)
       .then((res) => {
         console.log(res);
-        const { id, nume, prenume, email, telefon, poza, cnp } =
-          res.data["data"];
-        const mydate = res.data["data"].datanastere;
-        let datanastere = format(parseISO(mydate), "yyyy-MM-dd");
+        const { id, nume, prenume, email } = res.data["data"];
 
         setFormValues({
           id,
           nume,
           prenume,
           email,
-          telefon,
-          poza,
-          cnp,
-          datanastere,
         });
       })
       .catch((err) => console.log(err));

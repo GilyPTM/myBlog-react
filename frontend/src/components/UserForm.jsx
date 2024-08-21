@@ -60,43 +60,6 @@ const UserForm = (props) => {
               component="span"
             />
           </FormGroup>
-
-          <FormGroup>
-            <label htmlFor="telefon">Telefon</label>
-            <Field name="telefon" type="text" className="form-control" />
-            <ErrorMessage
-              name="telefon"
-              className="d-block invalid-feedback"
-              component="span"
-            />
-          </FormGroup>
-          <FormGroup>
-            <label htmlFor="poza">Poza</label>
-            <Field name="poza" type="text" className="form-control" />
-            <ErrorMessage
-              name="poza"
-              className="d-block invalid-feedback"
-              component="span"
-            />
-          </FormGroup>
-          <FormGroup>
-            <label htmlFor="cnp">CNP</label>
-            <Field name="cnp" type="text" className="form-control" />
-            <ErrorMessage
-              name="cnp"
-              className="d-block invalid-feedback"
-              component="span"
-            />
-          </FormGroup>
-          <FormGroup>
-            <label htmlFor="datanastere">Data nastere</label>
-            <Field name="datanastere" type="date" className="form-control" />
-            <ErrorMessage
-              name="datanastere"
-              className="d-block invalid-feedback"
-              component="span"
-            />
-          </FormGroup>
           <Field name="id" type="hidden" className="form-control" />
           <Button
             variant="danger"

@@ -8,7 +8,7 @@ export default function NavBar() {
     <nav className="navbar navbar-expand-lg navbar-dark bg-success">
       <div className="container">
         <a className="navbar-brand" href="/">
-          React Blog RNEM
+          Gily's Blog
         </a>
         <button
           className="navbar-toggler"

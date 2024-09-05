@@ -5,7 +5,9 @@ export default function Footer() {
     //  Footer
     <footer className="footer py-5 bg-dark">
       <div class="container">
-        <p class=" text-center text-white">Place sticky footer content here.</p>
+        <p class=" text-center text-white">
+          Place sticky footer content right here.
+        </p>
       </div>
     </footer>
   );
